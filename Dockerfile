@@ -4,9 +4,12 @@ COPY . /app
 
 WORKDIR /app
 
-RUN --mount=type=cache,target=/root/.npm-production npm ci --ignore-scripts --omit-dev
+# Railwayデプロイ用にキャッシュ削除
+RUN npm ci --ignore-scripts --omit-dev
+RUN npm run build
 
-RUN --mount=type=cache,target=/root/.npm npm run build
+# RUN --mount=type=cache,target=/root/.npm-production npm ci --ignore-scripts --omit-dev
+# RUN --mount=type=cache,target=/root/.npm npm run build
 
 FROM node:22-alpine AS release
 
