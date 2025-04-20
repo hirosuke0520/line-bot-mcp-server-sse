@@ -1,0 +1,17 @@
+services:
+  line-bot-mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: line-bot-mcp-server
+    ports:
+      - "3001:3001"
+    environment:
+      - CHANNEL_ACCESS_TOKEN=${CHANNEL_ACCESS_TOKEN}
+      - DESTINATION_USER_ID=${DESTINATION_USER_ID}
+    networks:
+      - line-bot-network
+
+networks:
+  line-bot-network:
+    driver: bridge
